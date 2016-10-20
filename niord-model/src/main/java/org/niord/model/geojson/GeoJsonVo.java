@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.niord.model.IJsonSerializable;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -52,6 +53,7 @@ import java.util.function.Consumer;
 @XmlTransient
 @XmlSeeAlso({ PointVo.class, MultiPointVo.class, LineStringVo.class, MultiLineStringVo.class,
         PolygonVo.class, MultiPolygonVo.class, GeometryCollectionVo.class, FeatureVo.class, FeatureCollectionVo.class })
+@SuppressWarnings("unused")
 public abstract class GeoJsonVo implements IJsonSerializable {
 
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -117,6 +119,11 @@ public abstract class GeoJsonVo implements IJsonSerializable {
         return new double[]{(bbox[0] + bbox[2]) / 2.0, (bbox[1] + bbox[3]) / 2.0};
     }
 
+    @ApiModelProperty(
+            value = "type",
+            required = true,
+            allowableValues = "Point,MultiPoint,LineString,MultiLineString,Polygon,MultiPolygon,GeometryCollection,Feature,FeatureCollection",
+            dataType = "String")
     public String getType() {
         return type;
     }

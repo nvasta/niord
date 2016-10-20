@@ -24,7 +24,11 @@ import java.util.function.Consumer;
  * GeoJSON MultiLineString, as defined in the specification:
  * http://geojson.org/geojson-spec.html#multilinestring
  */
-@ApiModel(value = "MultiLineString", description = "GeoJson MultiLineString type")
+@ApiModel(
+        value = "MultiLineString",
+        parent = GeometryVo.class,
+        description = "GeoJson MultiLineString type"
+)
 @XmlRootElement(name = "multiLineString")
 public class MultiLineStringVo extends GeometryVo {
 
@@ -32,9 +36,11 @@ public class MultiLineStringVo extends GeometryVo {
 
     @SuppressWarnings("unused")
     public MultiLineStringVo() {
+        setType("MultiLineString");
     }
 
     public MultiLineStringVo(double[][][] coordinates) {
+        this();
         this.coordinates = coordinates;
     }
 

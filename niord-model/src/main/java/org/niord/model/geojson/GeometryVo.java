@@ -15,6 +15,8 @@
  */
 package org.niord.model.geojson;
 
+import io.swagger.annotations.ApiModel;
+
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
@@ -22,6 +24,15 @@ import javax.xml.bind.annotation.XmlType;
  * Base Geometry object as defined in the specification:
  * http://geojson.org/geojson-spec.html#geometry-objects
  */
+@ApiModel(
+        value = "Geometry",
+        parent = GeoJsonVo.class,
+        description = "GeoJson Geometry type",
+        discriminator = "type",
+        subTypes = { PointVo.class, MultiPointVo.class, LineStringVo.class, MultiLineStringVo.class,
+                PolygonVo.class, MultiPolygonVo.class, GeometryCollectionVo.class
+        }
+)
 @XmlType(name = "geometry")
 @XmlSeeAlso({ PointVo.class, MultiPointVo.class, LineStringVo.class, MultiLineStringVo.class,
         PolygonVo.class, MultiPolygonVo.class, GeometryCollectionVo.class })

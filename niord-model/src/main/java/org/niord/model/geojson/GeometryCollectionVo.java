@@ -25,7 +25,11 @@ import java.util.function.Consumer;
  * GeoJSON GeometryCollection, as defined in the specification:
  * http://geojson.org/geojson-spec.html#geometry-collection
  */
-@ApiModel(value = "GeometryCollection", description = "GeoJson GeometryCollection type")
+@ApiModel(
+        value = "GeometryCollection",
+        parent = GeoJsonVo.class,
+        description = "GeoJson GeometryCollection type"
+)
 @XmlRootElement(name = "geometryCollection")
 public class GeometryCollectionVo extends GeometryVo {
 
@@ -33,9 +37,11 @@ public class GeometryCollectionVo extends GeometryVo {
 
     @SuppressWarnings("unused")
     public GeometryCollectionVo() {
+        setType("GeometryCollection");
     }
 
     public GeometryCollectionVo(GeometryVo[] geometries) {
+        this();
         this.geometries = geometries;
     }
 

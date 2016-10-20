@@ -24,7 +24,11 @@ import java.util.function.Consumer;
  * GeoJSON Polygon, as defined in the specification:
  * http://geojson.org/geojson-spec.html#polygon
  */
-@ApiModel(value = "Polygon", description = "GeoJson Polygon type")
+@ApiModel(
+        value = "Polygon",
+        parent = GeometryVo.class,
+        description = "GeoJson Polygon type"
+)
 @XmlRootElement(name = "polygon")
 public class PolygonVo extends GeometryVo {
 
@@ -32,9 +36,11 @@ public class PolygonVo extends GeometryVo {
 
     @SuppressWarnings("unused")
     public PolygonVo() {
+        setType("Polygon");
     }
 
     public PolygonVo(double[][][] coordinates) {
+        this();
         this.coordinates = coordinates;
     }
 
