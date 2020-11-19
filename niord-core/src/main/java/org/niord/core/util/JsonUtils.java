@@ -60,7 +60,7 @@ public class JsonUtils {
         }
 
         ObjectMapper jsonMapper = new ObjectMapper();
-        return jsonMapper.readValue(data, typeRef);
+        return (T) jsonMapper.readValue(data, typeRef);
     }
 
 
@@ -112,7 +112,7 @@ public class JsonUtils {
         }
 
         ObjectMapper jsonMapper = new ObjectMapper();
-        return jsonMapper.readValue(path.toFile(), typeRef);
+        return (T) jsonMapper.readValue(path.toFile(), typeRef);
     }
 
 

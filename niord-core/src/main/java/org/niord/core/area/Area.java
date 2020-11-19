@@ -15,7 +15,7 @@
  */
 package org.niord.core.area;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import org.apache.commons.lang.StringUtils;
 import org.niord.core.area.vo.SystemAreaVo;
 import org.niord.core.area.vo.SystemAreaVo.AreaMessageSorting;

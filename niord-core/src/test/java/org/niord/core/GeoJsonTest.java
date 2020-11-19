@@ -64,7 +64,7 @@ public class GeoJsonTest {
             geometry.visitCoordinates(counter);
             System.out.println("#coords = " + counter);
 
-            com.vividsolutions.jts.geom.Geometry jts = JtsConverter.toJts(geometry);
+            org.locationtech.jts.geom.Geometry jts = JtsConverter.toJts(geometry);
             System.out.println("-> JTS " + jts);
             geometry = JtsConverter.fromJts(jts);
             System.out.println("<- JTS " + geometry);

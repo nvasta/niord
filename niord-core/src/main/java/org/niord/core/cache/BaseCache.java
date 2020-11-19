@@ -46,7 +46,7 @@ public abstract class BaseCache<K, V> {
         if (cacheContainer == null) {
             GlobalConfiguration globalConfiguration = new GlobalConfigurationBuilder()
                     .nonClusteredDefault() //Helper method that gets you a default constructed GlobalConfiguration, preconfigured for use in LOCAL mode
-                    .globalJmxStatistics().allowDuplicateDomains(true)
+                    .globalJmxStatistics() //.allowDuplicateDomains(true)
                     .build(); //Builds  the GlobalConfiguration object
 
             Configuration localConfiguration = createCacheConfiguration();

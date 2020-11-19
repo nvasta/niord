@@ -15,8 +15,8 @@
  */
 package org.niord.core.message;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.io.ParseException;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.ParseException;
 import org.apache.commons.lang.StringUtils;
 import org.niord.core.domain.Domain;
 import org.niord.core.geojson.JtsConverter;

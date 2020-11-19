@@ -5,27 +5,27 @@
 
     <groupId>org.niord</groupId>
     <artifactId>niord-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Niord parent project</name>
 
     <properties>
-        <java.min.version>1.8</java.min.version>
+        <java.min.version>11</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jboss.bom.version>10.1.0.Final</jboss.bom.version>
+        <wildfly.bom.version>21.0.0.Final</wildfly.bom.version>
         <keycloak.version>3.1.0.Final</keycloak.version>
-        <jackson.version>2.7.4</jackson.version>
+        <jackson.version>2.11.3</jackson.version>
         <swagger.version>1.5.13</swagger.version>
-        <batik.version>1.8</batik.version>
+        <batik.version>1.13</batik.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-javaee7</artifactId>
-                <version>${jboss.bom.version}</version>
+                <artifactId>wildfly-jakartaee8</artifactId>
+                <version>${wildfly.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -33,7 +33,7 @@
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.3.2</version>
+                <version>1.4</version>
             </dependency>
 
             <dependency>
@@ -50,20 +50,20 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>8.0.1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
+            <version>1.7.30</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
+            <version>1.7.30</version>
         </dependency>
 
         <dependency>
@@ -92,18 +92,34 @@
         </dependency>
 
         <dependency>
-            <groupId>com.vividsolutions</groupId>
+            <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
-            <version>1.14.0</version>
-            <scope>provided</scope>
+            <version>1.17.1</version>
+        <!--    <scope>provided</scope> -->
         </dependency>
-        <dependency>
-            <groupId>com.vividsolutions</groupId>
-            <artifactId>jts-io</artifactId>
-            <version>1.14.0</version>
-            <scope>provided</scope>
-        </dependency>
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-core</artifactId>
+    <version>2.3.0.1</version>
+</dependency>
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.1</version>
+    <scope>compile</scope>
+</dependency>
 
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-impl</artifactId>
+    <version>2.3.1</version>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>org.javassist</groupId>
+    <artifactId>javassist</artifactId>
+    <version>3.25.0-GA</version>
+</dependency>
 
         <!-- Test -->
         <dependency>

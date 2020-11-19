@@ -15,7 +15,7 @@
  */
 package org.niord.core.aton;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
