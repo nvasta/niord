@@ -51,9 +51,10 @@ public class AtonBlankTileCache extends BaseCache<String, String> {
         return new ConfigurationBuilder()
                 .clustering().cacheMode(CacheMode.LOCAL)
                 .locking().isolationLevel(IsolationLevel.REPEATABLE_READ)
-                .memory().maxCount(MAX_ENTRIES)
+                .memory().evictionType(EvictionType.COUNT).size(MAX_ENTRIES).evictionStrategy(EvictionStrategy.LRU)
                 .expiration().lifespan(LIFESPAN)
                 .build();
     }
 
 }
+

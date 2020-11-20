@@ -13,7 +13,7 @@
         <java.min.version>11</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <wildfly.bom.version>21.0.0.Final</wildfly.bom.version>
+        <wildfly.bom.version>20.0.1.Final</wildfly.bom.version>
         <keycloak.version>3.1.0.Final</keycloak.version>
         <jackson.version>2.11.3</jackson.version>
         <swagger.version>1.5.13</swagger.version>
@@ -57,13 +57,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.30</version>
+             <scope>provided</scope>
         </dependency>
 
         <dependency>
