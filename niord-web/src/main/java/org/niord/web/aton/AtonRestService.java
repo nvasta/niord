@@ -34,7 +34,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * REST interface for accessing AtoNs.
@@ -148,28 +147,19 @@ public class AtonRestService {
     @GZIP
     @NoCache
     @RolesAllowed(Roles.EDITOR)
-    public AtonNodeVo createAton(AtonNodeVo aton) throws Exception {
+    public AtonNodeVo createAton(AtonNodeVo aton) {
         // Reconstruct the internal AtoN node object
-        AtonNode atn = new AtonNode(aton);
-
-        // Make sure this is valid - no whitespaces in the aton UID
-        if(!atn.getAtonUid().matches("\\S+")) {
-            throw new WebApplicationException("No white spaces are allowed in the AtoN UID", 400);
-        }
-
-        // Make sure this is valid - does it already exist?
-        AtonNode origAtn = atonService.findByAtonUid(atn.getAtonUid());
-        if (Objects.nonNull(origAtn)) {
-            throw new WebApplicationException("The AtoN cannot be created as it already exists", 400);
-        }
+        AtonNode atonNode = new AtonNode(aton);
 
         log.debug("Creating aton " + aton);
 
-        // Create in the database - use the existing functionality
-        atonService.updateAtons(Collections.singletonList(atn));
+        try {
+            atonNode = atonService.createAton(atonNode);
+        } catch (Exception ex) {
+            throw new WebApplicationException(ex.getMessage(), 400);
+        }
 
-        // And return the saved version
-        return getAton(atn.getAtonUid());
+        return atonNode.toVo();
     }
 
 
@@ -187,28 +177,42 @@ public class AtonRestService {
     @GZIP
     @NoCache
     @RolesAllowed(Roles.EDITOR)
-    public AtonNodeVo updateAton(@PathParam("atonUid") String atonUid, AtonNodeVo aton) throws Exception {
+    public AtonNodeVo updateAton(@PathParam("atonUid") String atonUid, AtonNodeVo aton) {
         // Reconstruct the internal AtoN node object
-        AtonNode atn = new AtonNode(aton);
-
-        // Make sure this is valid - no whitespaces in the aton UID
-        if(!atn.getAtonUid().matches("\\S+")) {
-            throw new WebApplicationException("No white spaces are allowed in the AtoN UID", 400);
-        }
-
-        // Make sure this is valid - does it exist?
-        AtonNode origAtn = atonService.findByAtonUid(atonUid);
-        if (Objects.isNull(origAtn) || !Objects.equals(origAtn.getAtonUid(), atn.getAtonUid())) {
-            throw new WebApplicationException("The AtoN cannot be updated as it does not exist", 400);
-        }
+        AtonNode atonNode = new AtonNode(aton);
 
         log.debug("Updating aton " + aton);
 
-        // Update in the database - use the existing functionality
-        atonService.updateAtons(Collections.singletonList(atn));
+        try {
+            atonNode = atonService.updateAton(atonNode);
+        } catch (Exception ex) {
+            throw new WebApplicationException(ex.getMessage(), 400);
+        }
 
-        // And return the saved version
-        return getAton(atn.getAtonUid());
+        return atonNode.toVo();
+    }
+
+    /**
+     * Delete an AtoN node.
+     *
+     * @param atonUid the UID of the AtoN to be updated
+     * @return the outcome of the operation
+     */
+    @DELETE
+    @Path("/aton/{atonUid}")
+    @Consumes("application/json;charset=UTF-8")
+    @Produces("application/json;charset=UTF-8")
+    @GZIP
+    @NoCache
+    @RolesAllowed(Roles.EDITOR)
+    public boolean deleteAton(@PathParam("atonUid") String atonUid) {
+        log.debug("Deleting aton with UID" + atonUid);
+
+        try {
+            return atonService.deleteAton(atonUid);
+        } catch (Exception ex) {
+            throw new WebApplicationException(ex.getMessage(), 400);
+        }
     }
 
     /**

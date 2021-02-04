@@ -90,7 +90,7 @@ public class AtonNode extends BaseEntity<Integer> {
     /** Constructor */
     public AtonNode(AtonNodeVo node) {
         Objects.requireNonNull(node);
-        this.id = node.getId();
+        this.id = node.getId() > 0 ? node.getId() : null;
         this.lat = node.getLat();
         this.lon = node.getLon();
         this.user = node.getUser();
