@@ -253,6 +253,10 @@ public class AtonNode extends BaseEntity<Integer> {
         this.version = template.getVersion();
         this.changeset = template.getChangeset();
         this.timestamp = template.getTimestamp();
+        this.tags.removeAll(this.getTags()
+                .stream()
+                .filter(t -> template.getTag(t.getK()) == null)
+                .collect(Collectors.toList()));
         template.getTags().forEach(t -> updateTag(t.getK(), t.getV()));
     }
 
