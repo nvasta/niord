@@ -200,6 +200,34 @@ public class AtonDefaultsService {
 
 
     /**
+     * Describes the given AtoN with the tags of the node type with the given
+     * name.
+     *
+     * @param aton the AtoN to be described
+     * @param nodeType the node type
+     */
+    public void describeAtonForNodeTypes(AtonNode aton, String nodeType) {
+        // Sanity checks
+        if (aton == null || StringUtils.isBlank(nodeType)) {
+            return;
+        }
+
+        // Describe the AtoN tags by the type
+        Optional.of(nodeType)
+                .map(this::getNodeByType)
+                .ifPresent(type -> {
+                    type.getTags().forEach(tag -> {
+                        if (aton.getTagValue(tag.getK()) == null) {
+                            String def = StringUtils.capitalize(tag.getK().split(":")[tag.getK().split(":").length - 1]);
+                            String text = StringUtils.defaultString(StringUtils.trimToNull(tag.getText()), def);
+                            aton.getTags().add(new AtonTag(tag.getK(), text));
+                        }
+                    });
+                });
+    }
+
+
+    /**
      * Computes an auto-complete list for OSM tag keys, based on the current AtoN and key
      *
      * @param aton the current AtoN
@@ -416,6 +444,21 @@ public class AtonDefaultsService {
         return score;
     }
 
+    /**
+     * Tries to find a node type by the type key, as this is defined in the
+     * "seamark:type" tag of the node.
+     *
+     * @param type the type of the AtoN node
+     * @return The matching node type
+     */
+    private ODNodeType getNodeByType(String type) {
+        return osmNodeTypes.values().stream()
+                .filter(t -> t.tag("seamark:type") != null)
+                .filter(t -> Objects.equals(t.tag("seamark:type").v, type))
+                .findAny()
+                .orElse(null);
+    }
+
     /*************************/
     /** Helper classes      **/
     /*************************/
@@ -494,6 +537,7 @@ public class AtonDefaultsService {
     private static class ODTag {
         String k;
         String v;
+        String text;
         List<ODTagValues> tagValueRefs;
         List<ODTagValue> tagValues;
 
@@ -513,6 +557,15 @@ public class AtonDefaultsService {
 
         public void setV(String v) {
             this.v = v;
+        }
+
+        @XmlAttribute
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
         }
 
         @XmlElement(name = "tag-values")

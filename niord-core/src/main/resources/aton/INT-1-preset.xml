@@ -4609,6 +4609,7 @@
         <label text="S18: Virtual AIS, Automatic Identification System" icon="https://raw.githubusercontent.com/OpenNauticalChart/josm/master/icons/svg/S/S1.svg"/>
         <space/>
         <key key="seamark:type" value="virtual_aton"/>
+        <text key="seamark:name" text="Name"/>
         <combo key="seamark:virtual_aton:category" text="Category">
           <list_entry value="north_cardinal" display_value="North Cardinal"/>
           <list_entry value="south_cardinal" display_value="South Cardinal"/>
