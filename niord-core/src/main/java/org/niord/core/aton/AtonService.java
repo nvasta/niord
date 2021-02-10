@@ -28,6 +28,7 @@ import org.niord.core.area.Area;
 import org.niord.core.chart.Chart;
 import org.niord.core.db.CriteriaHelper;
 import org.niord.core.db.SpatialWithinPredicate;
+import org.niord.core.geomesa.DataStoreService;
 import org.niord.core.model.BaseEntity;
 import org.niord.core.service.BaseService;
 import org.niord.core.user.UserService;
@@ -57,6 +58,9 @@ public class AtonService extends BaseService {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    DataStoreService dataStoreService;
 
     /*************************/
     /** NEW Aton Model      **/
@@ -142,6 +146,9 @@ public class AtonService extends BaseService {
         // Persist the new object
         em.persist(aton);
 
+        // And now that everything is OK, push the aton to the data stores
+        this.dataStoreService.pushAton(aton);
+
         // And return the updated AtoN
         return aton;
     }
@@ -161,6 +168,9 @@ public class AtonService extends BaseService {
         // Persist the new object
         orig.updateNode(aton);
         em.persist(orig);
+
+        // And now that everything is OK, push the aton to the data stores
+        this.dataStoreService.pushAton(orig);
 
         // And return the updated AtoN
         return orig;
