@@ -298,7 +298,7 @@ public class FiringScheduleService extends BaseService {
         // Fetch the current firing periods for the area
         FiringAreaPeriodsVo currentFiringPeriods = getFiringAreaPeriods(firingAreaPeriods.getArea().getId(), date, lang);
         if (currentFiringPeriods == null) {
-            throw new WebApplicationException("No firing area " + firingAreaPeriods.getArea().getId(), 400);
+            throw new WebApplicationException(new Exception("No firing area " + firingAreaPeriods.getArea().getId()), 400);
         }
 
         Area area = areaService.getAreaDetails(firingAreaPeriods.getArea().getId());

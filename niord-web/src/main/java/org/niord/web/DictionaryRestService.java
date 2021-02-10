@@ -255,7 +255,7 @@ public class DictionaryRestService extends AbstractBatchableRestService {
     public DictionaryEntryVo matchesAton(AtonDictEntryListVo params) throws Exception {
 
         if (params.getAton() == null || params.getValues() == null) {
-            throw new WebApplicationException("No proper message specified", 400);
+            throw new WebApplicationException(new Exception("No proper message specified"), 400);
         }
 
         if (params.getValues().stream().noneMatch(d -> StringUtils.isNotBlank(d.getAtonFilter()))) {

@@ -156,7 +156,7 @@ public class AtonRestService {
         try {
             atonNode = atonService.createAton(atonNode);
         } catch (Exception ex) {
-            throw new WebApplicationException(ex.getMessage(), 400);
+            throw new WebApplicationException(ex, 400);
         }
 
         return atonNode.toVo();
@@ -186,7 +186,7 @@ public class AtonRestService {
         try {
             atonNode = atonService.updateAton(atonNode);
         } catch (Exception ex) {
-            throw new WebApplicationException(ex.getMessage(), 400);
+            throw new WebApplicationException(ex, 400);
         }
 
         return atonNode.toVo();
@@ -211,7 +211,7 @@ public class AtonRestService {
         try {
             return atonService.deleteAton(atonUid);
         } catch (Exception ex) {
-            throw new WebApplicationException(ex.getMessage(), 400);
+            throw new WebApplicationException(ex, 400);
         }
     }
 

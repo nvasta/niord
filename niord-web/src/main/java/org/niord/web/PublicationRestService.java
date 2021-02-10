@@ -437,7 +437,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
 
         } catch (Exception e) {
             log.error("Error updating status " + e.getMessage(), e);
-            throw new WebApplicationException(e.getMessage(), 400);
+            throw new WebApplicationException(e, 400);
         }
     }
 
@@ -479,7 +479,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
         if (responseCode != HttpURLConnection.HTTP_OK) {
             httpConn.disconnect();
             log.error("Error creating publication report " + queryString);
-            throw new WebApplicationException("Error creating publication report: " + queryString, 500);
+            throw new WebApplicationException(new Exception("Error creating publication report: " + queryString), 500);
         }
 
         // If the file name has not been specified in the descriptor, extract it from the
@@ -502,7 +502,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
             IOUtils.copy(is, out);
         } catch (IOException ex) {
             log.error("Error generating publication report " + destFile, ex);
-            throw new WebApplicationException("Error generating publication report: " + destFile, 500);
+            throw new WebApplicationException(new Exception("Error generating publication report: " + destFile), 500);
         }
         httpConn.disconnect();
 
@@ -540,7 +540,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
 
         Publication pub = publicationService.findByPublicationId(publicationId);
         if (pub == null) {
-            throw new WebApplicationException("Invalid publication ID " + publicationId, 400);
+            throw new WebApplicationException(new Exception("Invalid publication ID " + publicationId), 400);
         }
 
         // Validate that we can release the publication
@@ -549,7 +549,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
                 pub.getMessageTag() == null ||
                 pub.getPrintSettings() == null ||
                 pub.getPrintSettings().get("report") == null) {
-            throw new WebApplicationException("Cannot release publication " + publicationId, 400);
+            throw new WebApplicationException(new Exception("Cannot release publication " + publicationId), 400);
         }
         Map<String, Object> printSettings = pub.getTemplate() != null ? pub.getTemplate().getPrintSettings() : pub.getPrintSettings();
 
@@ -626,7 +626,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
         FileItem fileItem = items.stream()
                 .filter(item -> !item.isFormField())
                 .findFirst()
-                .orElseThrow(() -> new WebApplicationException("No uploaded publication file", 400));
+                .orElseThrow(() -> new WebApplicationException(new Exception("No uploaded publication file"), 400));
 
         // Check for the associated publication desc record
         PublicationDescVo desc = items.stream()
@@ -641,7 +641,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
                 })
                 .filter(Objects::nonNull)
                 .findFirst()
-                .orElseThrow(() -> new WebApplicationException("No publication descriptor found", 400));
+                .orElseThrow(() -> new WebApplicationException(new Exception("No publication descriptor found"), 400));
 
         // Validate that the path is a temporary repository folder path
         java.nio.file.Path folder = checkCreateTempRepoPath(path);
@@ -655,7 +655,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
             IOUtils.copy(fileItem.getInputStream(), out);
         } catch (IOException ex) {
             log.error("Error creating publication file " + destFile, ex);
-            throw new WebApplicationException("Error creating destination file: " + destFile, 500);
+            throw new WebApplicationException(new Exception("Error creating destination file: " + destFile), 500);
         }
 
         desc.setFileName(fileName);
@@ -682,7 +682,7 @@ public class PublicationRestService extends AbstractBatchableRestService {
                 Files.createDirectories(folder);
             } catch (IOException e) {
                 log.error("Error creating publication folder " + folder, e);
-                throw new WebApplicationException("Invalid publication folder: " + path, 403);
+                throw new WebApplicationException(new Exception("Invalid publication folder: " + path), 403);
             }
         }
         return folder;

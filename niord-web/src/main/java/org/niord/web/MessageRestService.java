@@ -155,21 +155,21 @@ public class MessageRestService  {
         }
 
         if (editOp == EditOp.VIEW && !userService.isCallerInRole(Roles.USER)) {
-            throw new WebApplicationException("Only users, editors and admins can view an editable message", 403);
+            throw new WebApplicationException(new Exception("Only users, editors and admins can view an editable message"), 403);
         }
 
         if (editOp == EditOp.CHANGE_STATUS && !userService.isCallerInRole(Roles.EDITOR)) {
-            throw new WebApplicationException("Only editors and admins can change status of a message", 403);
+            throw new WebApplicationException(new Exception("Only editors and admins can change status of a message"), 403);
         }
 
         if (editOp == EditOp.UPDATE && !userService.isCallerInRole(Roles.EDITOR)) {
-            throw new WebApplicationException("Only editors and admins can update a message", 403);
+            throw new WebApplicationException(new Exception("Only editors and admins can update a message"), 403);
         }
 
         // Extra check - only admins can edit a non-draft message
         boolean draft = message.getStatus().isDraft();
         if (editOp == EditOp.UPDATE && !draft && !userService.isCallerInRole(Roles.ADMIN)) {
-            throw new WebApplicationException("Only admins can update a non-draft message", 403);
+            throw new WebApplicationException(new Exception("Only admins can update a non-draft message"), 403);
         }
     }
 
@@ -968,7 +968,7 @@ public class MessageRestService  {
             return geometryFormatService.formatGeometryAsHtml(language, template, format, geometry);
         } catch (Exception e) {
             log.error("Error formatting geometry: " + e.getMessage(), e);
-            throw new WebApplicationException("Error formatting geometry", e);
+            throw new WebApplicationException(e, 500);
         }
     }
 

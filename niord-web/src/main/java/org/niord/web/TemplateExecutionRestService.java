@@ -194,7 +194,7 @@ public class TemplateExecutionRestService extends AbstractBatchableRestService {
     @NoCache
     public ParamTypeVo createParamType(ParamTypeVo paramType) throws Exception {
         if (paramType instanceof StandardParamTypeVo) {
-            throw new WebApplicationException("Illegal parameter type", 400);
+            throw new WebApplicationException(new Exception("Illegal parameter type"), 400);
         }
         log.info("Creating parameter type " + paramType);
         return templateExecutionService.createParamType(paramType.toEntity())
@@ -215,7 +215,7 @@ public class TemplateExecutionRestService extends AbstractBatchableRestService {
             throw new WebApplicationException(400);
         }
         if (paramType instanceof StandardParamTypeVo) {
-            throw new WebApplicationException("Illegal parameter type", 400);
+            throw new WebApplicationException(new Exception("Illegal parameter type"), 400);
         }
 
         log.info("Updating parameter type " + paramType);
@@ -233,7 +233,7 @@ public class TemplateExecutionRestService extends AbstractBatchableRestService {
     @NoCache
     public void deleteParamType(@PathParam("id") Integer id) throws Exception {
         if (templateExecutionService.getParamType(id) instanceof StandardParamType) {
-            throw new WebApplicationException("Illegal parameter type", 400);
+            throw new WebApplicationException(new Exception("Illegal parameter type"), 400);
         }
         log.info("Deleting parameter type " + id);
         templateExecutionService.deleteParamType(id);
@@ -257,7 +257,7 @@ public class TemplateExecutionRestService extends AbstractBatchableRestService {
     public SystemMessageVo applyTemplate(ExecuteTemplateVo executeTemplate) throws Exception {
 
         if (!executeTemplate.valid()) {
-            throw new WebApplicationException("No proper message specified", 400);
+            throw new WebApplicationException(new Exception("No proper message specified"), 400);
         }
 
         // Resolve the message to use

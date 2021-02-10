@@ -104,7 +104,9 @@ public class DataStoreService {
     private void closeIndex() {
         if (this.producer != null) {
             this.producer.dispose();
+            this.producer = null;
         }
+        futures.clear();
         processPool.shutdown();
     }
 
@@ -151,6 +153,7 @@ public class DataStoreService {
                 if(!handler.isDone()) {
                     handler.cancel(true);
                 }
+                futures.clear();
             }, EXECUTOR_POOL_TIMEOUT, TimeUnit.SECONDS);
         }
     }

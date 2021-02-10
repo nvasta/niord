@@ -142,7 +142,7 @@ public class MailingListRestService extends AbstractBatchableRestService  {
         log.info("Returning details of mailing list " + mailingListId);
         MailingList mailingList = mailingListService.findByMailingListId(mailingListId);
         if (mailingList == null) {
-            throw new WebApplicationException("Mailing list " + mailingListId + " not found", 404);
+            throw new WebApplicationException(new Exception("Mailing list " + mailingListId + " not found"), 404);
         }
 
 
@@ -230,7 +230,7 @@ public class MailingListRestService extends AbstractBatchableRestService  {
         log.info("Returning recipient users of mailing list " + mailingListId);
         MailingList mailingList = mailingListService.findByMailingListId(mailingListId);
         if (mailingList == null) {
-            throw new WebApplicationException("Mailing list " + mailingListId + " not found", 404);
+            throw new WebApplicationException(new Exception("Mailing list " + mailingListId + " not found"), 404);
         }
 
         MailingListRecipients<UserVo> recipientData = new MailingListRecipients<>();
@@ -285,7 +285,7 @@ public class MailingListRestService extends AbstractBatchableRestService  {
         log.info("Returning recipient contacts of mailing list " + mailingListId);
         MailingList mailingList = mailingListService.findByMailingListId(mailingListId);
         if (mailingList == null) {
-            throw new WebApplicationException("Mailing list " + mailingListId + " not found", 404);
+            throw new WebApplicationException(new Exception("Mailing list " + mailingListId + " not found"), 404);
         }
 
         MailingListRecipients<ContactVo> recipientData = new MailingListRecipients<>();
@@ -372,7 +372,7 @@ public class MailingListRestService extends AbstractBatchableRestService  {
            }
 
        } else {
-           throw new WebApplicationException("User or contact must be specified", 400);
+           throw new WebApplicationException(new Exception("User or contact must be specified"), 400);
        }
 
         // If recipients were updated, persist the changes

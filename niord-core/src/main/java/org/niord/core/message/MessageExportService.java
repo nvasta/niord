@@ -104,7 +104,7 @@ public class MessageExportService {
             out.close();
             log.info("Created Zip export archive in " + (System.currentTimeMillis() - t0) + " ms");
         } catch (Exception e) {
-            throw new WebApplicationException("Error generating ZIP archive for messages", e);
+            throw new WebApplicationException(new Exception("Error generating ZIP archive for messages"), 500);
         }
     }
 

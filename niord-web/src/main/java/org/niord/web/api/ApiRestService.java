@@ -149,7 +149,7 @@ public class ApiRestService extends AbstractApiService {
         StreamingOutput stream = os -> objectMapperForDateFormat(dateFormat).writeValue(os, messages);
 
         return Response
-                .ok(stream, MediaType.APPLICATION_JSON_TYPE.withCharset("utf-8"))
+                .ok(stream, MediaType.APPLICATION_JSON_TYPE)
                 .build();
 
     }
@@ -199,7 +199,7 @@ public class ApiRestService extends AbstractApiService {
             StreamingOutput stream = os -> objectMapperForDateFormat(dateFormat).writeValue(os, result);
 
             return Response
-                    .ok(stream, MediaType.APPLICATION_JSON_TYPE.withCharset("utf-8"))
+                    .ok(stream, MediaType.APPLICATION_JSON_TYPE)
                     .build();
         }
     }
@@ -338,7 +338,7 @@ public class ApiRestService extends AbstractApiService {
         StreamingOutput stream = os -> objectMapperForDateFormat(dateFormat).writeValue(os, publications);
 
         return Response
-                .ok(stream, MediaType.APPLICATION_JSON_TYPE.withCharset("utf-8"))
+                .ok(stream, MediaType.APPLICATION_JSON_TYPE)
                 .build();
     }
 
@@ -386,7 +386,7 @@ public class ApiRestService extends AbstractApiService {
             StreamingOutput stream = os -> objectMapperForDateFormat(dateFormat).writeValue(os, result);
 
             return Response
-                    .ok(stream, MediaType.APPLICATION_JSON_TYPE.withCharset("utf-8"))
+                    .ok(stream, MediaType.APPLICATION_JSON_TYPE)
                     .build();
         }
     }
@@ -465,7 +465,7 @@ public class ApiRestService extends AbstractApiService {
             AreaVo result = area.toVo(AreaVo.class, DataFilter.get().fields(DataFilter.PARENT).lang(language));
 
             return Response
-                    .ok(result, MediaType.APPLICATION_JSON_TYPE.withCharset("utf-8"))
+                    .ok(result, MediaType.APPLICATION_JSON_TYPE)
                     .build();
         }
     }
@@ -509,7 +509,7 @@ public class ApiRestService extends AbstractApiService {
                     .collect(Collectors.toList());
 
             return Response
-                    .ok(result, MediaType.APPLICATION_JSON_TYPE.withCharset("utf-8"))
+                    .ok(result, MediaType.APPLICATION_JSON_TYPE)
                     .build();
         }
     }

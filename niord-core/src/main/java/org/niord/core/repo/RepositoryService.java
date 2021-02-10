@@ -410,14 +410,14 @@ public class RepositoryService {
 
         if (Files.exists(folder) && !Files.isDirectory(folder)) {
             log.warn("Failed streaming file to folder: " + folder);
-            throw new WebApplicationException("Invalid upload folder: " + path, 403);
+            throw new WebApplicationException(new Exception("Invalid upload folder: " + path), 403);
 
         } else if (Files.notExists(folder)) {
             try {
                 Files.createDirectories(folder);
             } catch (IOException e) {
                 log.error("Error creating repository folder " + folder, e);
-                throw new WebApplicationException("Invalid upload folder: " + path, 403);
+                throw new WebApplicationException(new Exception("Invalid upload folder: " + path), 403);
             }
         }
 
@@ -526,7 +526,7 @@ public class RepositoryService {
         Path folder = getRepoRoot().resolve(path);
         if (!folder.toAbsolutePath().startsWith(getTempRepoRoot().toAbsolutePath())) {
             log.warn("Failed streaming file to temp root folder: " + folder);
-            throw new WebApplicationException("Invalid upload folder: " + path, 403);
+            throw new WebApplicationException(new Exception("Invalid upload folder: " + path), 403);
         }
         return folder;
     }

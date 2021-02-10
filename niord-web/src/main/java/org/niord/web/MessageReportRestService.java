@@ -268,7 +268,7 @@ public class MessageReportRestService extends AbstractBatchableRestService {
                             .language(language)
                             .process(format, os);
                 } catch (Exception e) {
-                    throw new WebApplicationException("Error generating PDF for message " + messageId, e);
+                    throw new WebApplicationException(new Exception("Error generating PDF for message " + messageId), 500);
                 }
             };
 
@@ -337,7 +337,7 @@ public class MessageReportRestService extends AbstractBatchableRestService {
                             .language(language)
                             .process(format, os);
                 } catch (Exception e) {
-                    throw new WebApplicationException("Error generating PDF for messages", e);
+                    throw new WebApplicationException(new Exception("Error generating PDF for messages"), 500);
                 }
             };
 

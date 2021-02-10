@@ -56,7 +56,7 @@ public class MonitorRestService {
             return "success";
 
         } catch (Exception ex) {
-            throw new WebApplicationException("Error accessing database: " + ex.getMessage(), 500);
+            throw new WebApplicationException(new Exception("Error accessing database: " + ex.getMessage()), 500);
         }
     }
 
