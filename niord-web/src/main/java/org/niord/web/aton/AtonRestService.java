@@ -247,6 +247,25 @@ public class AtonRestService {
     }
 
     /**
+     * Returns the name of all node types where the name matches the parameter
+     *
+     * @param atonNodeTypeParam the AtoN and node type names
+     * @return the name of all node types where the name matches the parameter
+     */
+    @POST
+    @Path("/defaults/desc-for-node-types")
+    @Consumes("application/json;charset=UTF-8")
+    @Produces("application/json;charset=UTF-8")
+    @GZIP
+    @NoCache
+    public Object describeAtonForNodeTypes(AtonNodeTypeParam atonNodeTypeParam) {
+        AtonNode aton = new AtonNode(atonNodeTypeParam.getAton());
+        atonNodeTypeParam.getNodeTypeNames()    // Here we actually have the type itself
+                .forEach(type -> atonDefaultsService.describeAtonForNodeTypes(aton, type));
+        return aton.toVo();
+    }
+
+    /**
      * Creates an auto-complete list for OSM tag keys, based on the current AtoN and key
      *
      * @param key the currently typed key
