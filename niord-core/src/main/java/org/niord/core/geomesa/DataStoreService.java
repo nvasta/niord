@@ -141,8 +141,10 @@ public class DataStoreService {
                     this.producer = this.createDataStore(params);
 
                     // Create the AtoN Schema
-                    GeomesaAton gmAton = new GeomesaAton();
-                    this.createSchema(this.producer, gmAton.getSimpleFeatureType());
+                    if(this.producer != null) {
+                        GeomesaAton gmAton = new GeomesaAton();
+                        this.createSchema(this.producer, gmAton.getSimpleFeatureType());
+                    }
                 } catch (IOException e) {
                     log.error(e.getMessage());
                 }

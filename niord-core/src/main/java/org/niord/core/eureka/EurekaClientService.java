@@ -43,19 +43,19 @@ public class EurekaClientService {
      */
     @PostConstruct
     protected void init() {
-        applicationInfoManager = initializeApplicationInfoManager(new MyDataCenterInstanceConfig());
-        applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.STARTING);
+        this.applicationInfoManager = initializeApplicationInfoManager(new MyDataCenterInstanceConfig());
+        this.applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.STARTING);
 
         log.info("Initialising the Eureka Client...");
 
-        eurekaClient = initializeEurekaClient(applicationInfoManager, new DefaultEurekaClientConfig());
-        applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.UP);
+        this.eurekaClient = initializeEurekaClient(applicationInfoManager, new DefaultEurekaClientConfig());
+        this.applicationInfoManager.setInstanceStatus(InstanceInfo.InstanceStatus.UP);
 
         log.info("Eureka Client now UP...");
     }
 
     /**
-     * Clean up Lucene index.
+     * Clean up the Netflix eureka client.
      */
     @PreDestroy
     protected void destroy() {
