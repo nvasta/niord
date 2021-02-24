@@ -22,6 +22,8 @@ import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST interface to the Eureka Client
@@ -44,9 +46,12 @@ public class EurekaClientRestService {
     @GET
     @Path("/status")
     @PermitAll
+    @Produces("application/json;charset=UTF-8")
     @NoCache
-    public String clientStatus() {
-        return eurekaClientService.getStatus();
+    public Response clientStatus() {
+        String json = String.format("{\"status\": \"%s\"}", eurekaClientService.getStatus());
+        return Response.ok(eurekaClientService.getStatus(), MediaType.APPLICATION_JSON)
+                .build();
     }
 
     /**
@@ -57,9 +62,12 @@ public class EurekaClientRestService {
     @GET
     @Path("/health")
     @PermitAll
+    @Produces("application/json;charset=UTF-8")
     @NoCache
-    public String health() {
-        return "alive";
+    public Response health() {
+        String json = String.format("{\"status\": \"%s\"}", eurekaClientService.getStatus());
+        return Response.ok(json, MediaType.APPLICATION_JSON)
+                .build();
     }
 
     /**
@@ -70,9 +78,12 @@ public class EurekaClientRestService {
     @GET
     @Path("/about")
     @PermitAll
+    @Produces("application/json;charset=UTF-8")
     @NoCache
-    public String about() {
-        return "Niord - Nautical Information Directory";
+    public Response about() {
+        String json = String.format("{\"about\": \"Niord - Nautical Information Directory\"}");
+        return Response.ok(json, MediaType.APPLICATION_JSON)
+                .build();
     }
 
 }
