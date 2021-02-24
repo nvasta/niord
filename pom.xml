@@ -10,7 +10,7 @@
     <name>Niord parent project</name>
 
     <properties>
-        <java.min.version>1.8</java.min.version>
+        <java.min.version>11</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jboss.bom.version>13.0.0.Final</jboss.bom.version>
@@ -18,11 +18,6 @@
         <jackson.version>2.10.5</jackson.version>
         <swagger.version>1.6.2</swagger.version>
         <batik.version>1.13</batik.version>
-        <geomesa.version>3.1.0</geomesa.version>
-        <scala.abi.version>2.11</scala.abi.version>
-        <scala.version>2.11.7</scala.version>
-        <zookeeper.version>3.4.14</zookeeper.version>
-        <kafka.version>2.1.1</kafka.version>
     </properties>
 
     <dependencyManagement>
@@ -33,36 +28,6 @@
                 <version>${jboss.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.locationtech.geomesa</groupId>
-                <artifactId>geomesa_2.11</artifactId>
-                <version>${geomesa.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- redefine provided dependencies as runtime for ease in setting up the classpath -->
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka_${scala.abi.version}</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-clients</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>${zookeeper.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>20.0</version>
             </dependency>
 
             <dependency>

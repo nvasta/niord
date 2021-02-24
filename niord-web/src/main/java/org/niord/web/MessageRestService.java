@@ -968,7 +968,7 @@ public class MessageRestService  {
             return geometryFormatService.formatGeometryAsHtml(language, template, format, geometry);
         } catch (Exception e) {
             log.error("Error formatting geometry: " + e.getMessage(), e);
-            throw new WebApplicationException(e, 500);
+            throw new WebApplicationException(new Exception("Error formatting geometry"), 500);
         }
     }
 
