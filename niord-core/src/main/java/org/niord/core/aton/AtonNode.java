@@ -98,7 +98,7 @@ public class AtonNode extends BaseEntity<Integer> {
         this.visible = node.isVisible();
         this.version = node.getVersion();
         this.changeset = node.getChangeset();
-        this.changeset = node.getChangeset();
+        this.timestamp = node.getTimestamp();
         if (node.getTags() != null) {
             setTags(Arrays.stream(node.getTags())
                     .map(t -> new AtonTag(t, AtonNode.this))
