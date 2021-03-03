@@ -155,7 +155,7 @@ public class AtonNodeVo implements IJsonSerializable {
 
     /**
      * Checks whether the current node is for a virtual AtoN.
-     * @return
+     * @return Whether the current node is for a virtual AtoN
      */
     public boolean isVAtoN() {
         if(tags == null) {

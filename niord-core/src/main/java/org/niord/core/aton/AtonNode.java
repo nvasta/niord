@@ -33,11 +33,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -260,6 +256,19 @@ public class AtonNode extends BaseEntity<Integer> {
         template.getTags().forEach(t -> updateTag(t.getK(), t.getV()));
     }
 
+    /**
+     * Checks whether the current node is for a virtual AtoN.
+     * @return Whether the current node is for a virtual AtoN
+     */
+    public boolean isVAtoN() {
+        if(tags == null) {
+            return false;
+        }
+        return Optional.of(tags).orElse(Collections.emptyList()).stream()
+                .filter(tag -> tag.k.equals("seamark:type") && tag.v.equals("virtual_aton"))
+                .findAny()
+                .isPresent();
+    }
 
     /*************************/
     /** Getters and Setters **/
